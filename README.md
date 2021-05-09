@@ -6,17 +6,17 @@ Esta é uma API simples que tem o objetivo de gerenciar usuários, cursos e matr
 
 São utilizadas as tecnologias:
 
-- Java 11
-- Maven 3+  
-- Spring Boot
-- Spring Web
-- Bean Validation
-- Spring Data JPA
-- H2, o BD relacional em memória
+- ~~Java 11~~
+- ~~Maven 3+~~  
+- ~~Spring Boot~~
+- ~~Spring Web~~
+- ~~Bean Validation~~
+- ~~Spring Data JPA~~
+- ~~H2, o BD relacional em memória~~
 
-Abra o projeto na IDE da sua preferência.
+~~Abra o projeto na IDE da sua preferência.~~
 
-Execute os testes automatizados. 
+~~Execute os testes automatizados.~~ 
 
 Suba a aplicação e explore a API com uma ferramenta como [cURL](https://curl.se/), [Insomnia](https://insomnia.rest/), [Postman](https://www.postman.com/).
 
@@ -82,3 +82,4 @@ Observação: **NÃO** é preciso implementar listagem, edição ou remoção de
 ### Bônus (não obrigatório): ampliar testes automatizados
 
 Caso você tenha tempo disponível, amplie os testes automatizados tanto para a funcionalidade que você implementou como para as que já estavam implementadas no projeto.
+

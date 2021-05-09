@@ -32,9 +32,7 @@ public class Enrollment {
         this.dateEnrollment = dateEnrollment;
     }
 
-    User getUser() {
-        return user;
-    }
+    User getUser() { return user; }
 
     Course getCourse() {
         return course;
