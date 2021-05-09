@@ -20,5 +20,6 @@ CREATE TABLE Enrollment(
  user_id BIGINT,
  course_id BIGINT,
 FOREIGN KEY (user_id) references User (id),
-FOREIGN KEY (course_id) references Course (id)
+FOREIGN KEY (course_id) references Course (id),
+CONSTRAINT enrollment_user_course_uq UNIQUE (user_id,course_id)
 );

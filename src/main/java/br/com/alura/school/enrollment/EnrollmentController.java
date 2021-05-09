@@ -27,18 +27,22 @@ public class EnrollmentController {
     public ResponseEntity<Void> newErrollment(@PathVariable("code") String code,
                                           @RequestBody NewEnrollmentResquest newEnrollmentResquest) {
        //TODO: retornar status 400 com mensagem quando um usuario ou curso não for encontrado
+
         Course course = courseRepository.findByCode(code)
                 .orElseThrow(() ->
                         new ResponseStatusException(NOT_FOUND, format("Course with code %s not found", code)));
         User user = userRepository.findByUsername(newEnrollmentResquest.getUsername())
                 .orElseThrow(() ->
                         new ResponseStatusException(NOT_FOUND, format("User  %s not found", newEnrollmentResquest.getUsername())));
+        if(enrollmentRepository.existsByCourseAndUser(course,user)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         Enrollment enrollment = new Enrollment();
         enrollment.setCourse(course);
         enrollment.setUser(user);
         enrollment.setDateEnrollment(new Date());
         enrollmentRepository.save(enrollment);
         return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
 
+    }
 }
