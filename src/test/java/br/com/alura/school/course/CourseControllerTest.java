@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,6 +70,30 @@ class CourseControllerTest {
                 .content(jsonMapper.writeValueAsString(newCourseRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", "/courses/java-2"));
+    }
+
+    @Test
+    void should_validate_when_course_exist_by_code() throws Exception {
+        courseRepository.save(new Course("java-1", "Java OO", "Java and Object Orientation: Encapsulation, Inheritance and Polymorphism."));
+        NewCourseRequest newCourseRequest = new NewCourseRequest("java-1", "Java Collections", "Java Collections: Lists, Sets, Maps and more.");
+        mockMvc.perform(post("/courses")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.writeValueAsString(newCourseRequest)))
+                .andExpect(MockMvcResultMatchers
+                        .status()
+                        .is(400));
+    }
+
+    @Test
+    void should_validate_when_course_exist_by_name() throws Exception {
+        courseRepository.save(new Course("java-1", "Java OO", "Java and Object Orientation: Encapsulation, Inheritance and Polymorphism."));
+        NewCourseRequest newCourseRequest = new NewCourseRequest("java-0", "Java OO", "Java 00: Lists, Sets, Maps and more.");
+        mockMvc.perform(post("/courses")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.writeValueAsString(newCourseRequest)))
+                .andExpect(MockMvcResultMatchers
+                        .status()
+                        .is(400));
     }
 
 }

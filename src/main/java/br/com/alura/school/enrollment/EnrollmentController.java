@@ -4,7 +4,6 @@ import br.com.alura.school.course.Course;
 import br.com.alura.school.course.CourseRepository;
 import br.com.alura.school.user.User;
 import br.com.alura.school.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +14,25 @@ import java.util.Date;
 
 import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @RestController
 class EnrollmentController {
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
 
-    @Autowired
-    private EnrollmentRepository enrollmentRepository;
+    private final EnrollmentRepository enrollmentRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private  final UserRepository userRepository;
+
+    EnrollmentController(CourseRepository courseRepository, EnrollmentRepository enrollmentRepository,
+                     UserRepository userRepository) {
+        this.courseRepository = courseRepository;
+        this.enrollmentRepository = enrollmentRepository;
+        this.userRepository = userRepository;
+    }
 
     @PostMapping("/courses/{code}/enroll")
-    public ResponseEntity<Void> newEnrollment(@PathVariable("code") String code,
+    ResponseEntity<Void> newEnrollment(@PathVariable("code") String code,
                                               @RequestBody @Valid NewEnrollmentRequest newEnrollmentRequest) {
         Course course = courseRepository.findByCode(code)
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND,

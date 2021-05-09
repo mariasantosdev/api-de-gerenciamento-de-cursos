@@ -23,7 +23,7 @@ class CourseController {
     }
 
     @GetMapping("/courses")
-    ResponseEntity<List<CourseResponse>> allCourses() {
+   ResponseEntity<List<CourseResponse>> allCourses() {
         List<Course> courses = courseRepository.findAll();
         List<CourseResponse> responses = courses.stream().map(CourseResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok(responses);
@@ -36,7 +36,7 @@ class CourseController {
     }
 
     @PostMapping("/courses")
-    ResponseEntity<Void> newCourse(@RequestBody @Valid NewCourseRequest newCourseRequest) {
+     ResponseEntity<Void> newCourse(@RequestBody @Valid NewCourseRequest newCourseRequest) {
         courseRepository.save(newCourseRequest.toEntity());
         URI location = URI.create(format("/courses/%s", newCourseRequest.getCode()));
         return ResponseEntity.created(location).build();

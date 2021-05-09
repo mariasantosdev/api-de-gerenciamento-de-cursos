@@ -2,18 +2,27 @@ package br.com.alura.school.enrollment;
 
 import javax.validation.constraints.NotBlank;
 
-class NewEnrollmentRequest {
+public class NewEnrollmentRequest {
 
     @NotBlank
     private String username;
 
-    void setUsername(String username) {
+    public NewEnrollmentRequest() {
+    }
+
+    public NewEnrollmentRequest(String username) {
         this.username = username;
     }
 
-    String getUsername() {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
         return username;
     }
+
+
 }
 
 
