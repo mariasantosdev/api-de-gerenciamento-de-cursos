@@ -22,7 +22,6 @@ public class NewEnrollmentRequest {
         return username;
     }
 
-
 }
 
 

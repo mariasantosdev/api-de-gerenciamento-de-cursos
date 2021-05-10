@@ -22,10 +22,10 @@ class EnrollmentController {
 
     private final EnrollmentRepository enrollmentRepository;
 
-    private  final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     EnrollmentController(CourseRepository courseRepository, EnrollmentRepository enrollmentRepository,
-                     UserRepository userRepository) {
+                         UserRepository userRepository) {
         this.courseRepository = courseRepository;
         this.enrollmentRepository = enrollmentRepository;
         this.userRepository = userRepository;
@@ -33,13 +33,13 @@ class EnrollmentController {
 
     @PostMapping("/courses/{code}/enroll")
     ResponseEntity<Void> newEnrollment(@PathVariable("code") String code,
-                                              @RequestBody @Valid NewEnrollmentRequest newEnrollmentRequest) {
+                                       @RequestBody @Valid NewEnrollmentRequest newEnrollmentRequest) {
         Course course = courseRepository.findByCode(code)
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND,
                         format("Course with code %s not found", code)));
         User user = userRepository.findByUsername(newEnrollmentRequest.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND,
-                        format("User  %s not found", newEnrollmentRequest.getUsername())));
+                        format("User with username %s not found", newEnrollmentRequest.getUsername())));
 
         if(enrollmentRepository.existsByCourseAndUser(course,user)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -48,6 +48,5 @@ class EnrollmentController {
         Enrollment enrollment = new Enrollment(user,course, new Date());
         enrollmentRepository.save(enrollment);
         return ResponseEntity.status(HttpStatus.CREATED).build();
-
     }
 }

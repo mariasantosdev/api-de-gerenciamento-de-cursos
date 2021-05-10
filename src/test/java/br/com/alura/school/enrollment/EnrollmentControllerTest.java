@@ -17,8 +17,6 @@ import br.com.alura.school.user.User;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -97,6 +95,5 @@ class EnrollmentControllerTest {
                         .status()
                         .is(404));
     }
-
 
 }
